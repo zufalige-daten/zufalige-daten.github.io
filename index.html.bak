@@ -5,6 +5,14 @@
 	 </title>
 </head>
 
+<header>
+	<p>
+		<h2>
+			Home
+		</h2>
+	</p>
+</header>
+
 <body>
 	<center>
 		<button class="Home" type="button" onclick="window.location.href = 'index.html';" style="font-size:30px">
