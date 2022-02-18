@@ -30,15 +30,20 @@
 	<section class="Download Area">
 		<p>
 			<h4>
-				Thursday 17th January 2022:</p>
-				Original version, Alpha 0.1a:</p>
-				<a href="Alpha 0.1a.7z">Click to download 'Alpha 0.1a.7z'</a></p>
-				</p>
 				Thursday 17th January 2022 (again):</p>
 				Version: Alpha 0.1b:</p>
 				<a href="Alpha 0.1b.7z">Click to download 'Alpha 0.1b.7z'</a></p>
+				</p>
+				Thursday 17th January 2022:</p>
+				Original version, Alpha 0.1a:</p>
+				<a href="Alpha 0.1a.7z">Click to download 'Alpha 0.1a.7z'</a></p>
 			</h4>
 		</p>
+	</section>
+	<section class="Using With Qemu">
+		<p>
+			<h4>
+				To use with qemu, run with command: qemu-system-x86_64 -drive file=boot.img,format=raw -boot c.
 	</section>
 	</center>
 </body>
