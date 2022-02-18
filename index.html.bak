@@ -1,0 +1,31 @@
+<head>
+	 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	 <title>
+		Zufalige Daten - Home
+	 </title>
+</head>
+
+<body>
+	<center>
+		<button class="Home" type="button" onclick="window.location.href = 'index.html';" style="font-size:30px">
+			Home
+		</button>
+		<button type="button" onclick="window.location.href = 'TetheredOS.html';" style="font-size:30px">
+			Tehtered OS
+		</button>
+		<button type="button" onclick="window.location.href = 'About.html';" style="font-size:30px;">
+			About
+		</button>
+		<p style="font-size:20px">
+			Welcome to the Zufalige Daten GitHub page, here you will be able to find some of my projects.</p>
+			Current Projects:</p>
+			.Tethered OS.
+		</p>
+	</center>
+</body>
+
+<footer>
+	<center>
+		<p><img src="cons.gif" alt="Under Construction" /></p>
+	</center>
+</footer>
