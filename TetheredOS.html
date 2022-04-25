@@ -1,24 +1,39 @@
-<div class="Top">
-	<head>
-		<link rel="stylesheet" href="styles.css">
-	</head>
-	<header>
-		<div class="topnav">
-			<a href="index.html">Home</a>
-			<a class="active" href="TetheredOS.html">Tethered OS</a>
-			<a href="About.html">About</a>
-		</div>
-	</header>
-</div>
+<head>
+	 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	 <title>
+		Zufalige Daten - Tethered OS
+	 </title>
+</head>
 
-<body>
+<header>
+	<p>
+		<h2>
+			Tethered OS
+		</h2>
+	</p>
+</header>
+
+<body style="background-color:powderblue;">
 	<center>
+		<button class="Home" type="button" onclick="window.location.href = 'index.html';" style="font-size:30px">
+			Home
+		</button>
+		<button type="button" onclick="window.location.href = 'TetheredOS.html';" style="font-size:30px">
+			Tehtered OS
+		</button>
+		<button type="button" onclick="window.location.href = 'About.html';" style="font-size:30px;">
+			About
+		</button>
 	<p style="font-size:20px">
-		This is the place where you could download some images for hard disk of my x86_64 Operating System: Tethered OS.</p>
+		This is the place where you could download some images for hard disk of my x86 Operating System: Tethered OS.</p>
 	</p>
 	<section class="Download Area">
 		<p>
 			<h4>
+				Monday 25th April 2022:</p>
+				Version: Alpha 0.1c:</p>
+				<a href="boot_nofs.img">Click to download 'boot_nofs.img'</a></p>
+				</p>
 				Thursday 17th January 2022 (again):</p>
 				Version: Alpha 0.1b:</p>
 				<a href="Alpha 0.1b.7z">Click to download 'Alpha 0.1b.7z'</a></p>
@@ -26,15 +41,22 @@
 				Thursday 17th January 2022:</p>
 				Original version, Alpha 0.1a:</p>
 				<a href="Alpha 0.1a.7z">Click to download 'Alpha 0.1a.7z'</a></p>
+				</p>
 			</h4>
 		</p>
 	</section>
 	<section class="Using With Qemu">
 		<p>
 			<h4>
-				To use with qemu, run with command: qemu-system-x86_64 -drive file=boot.img,format=raw -boot c.
+				To use with qemu, run with command: qemu-system-x86_64 -drive file=boot.img,format=raw -boot c -m 2g.
 			</h4>
 		</p>
 	</section>
 	</center>
 </body>
+
+<footer>
+	<center>
+		<p><img src="cons.gif" alt="Under Construction" /></p>
+	</center>
+</footer>
