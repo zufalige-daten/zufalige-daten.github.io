@@ -1,0 +1,13 @@
+source_dir = 'src'
+include_dir = 'include'
+object_dir = 'obj'
+object_main = 'main.o'
+output_binary = 'bin/build'
+
+source_ext = 'c'
+object_ext = 'o'
+include_line_lib = '#include <{file}>'
+include_line_local = '#include "{file}"'
+
+compiler_command = 'gcc -c -o {output} {input} -I include'
+linker_command = 'gcc -o {output} {input} -I include'
