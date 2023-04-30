@@ -25,3 +25,11 @@ body{
 	background-color: silver;
 	color: white;
 }
+
+.content {
+	align-items: left;
+	justify-content: left;
+	clear: left;
+	margin: 0 auto;
+	display: inline;
+}
