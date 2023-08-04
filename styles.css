@@ -33,3 +33,30 @@ body{
 	margin: 0 auto;
 	display: inline;
 }
+
+.code {
+	font-family: Consolas,"courier new";
+	color: crimson;
+	background-color: #f1f1f1;
+	padding: 2px;
+	font-size: 95%;
+}
+
+.container {
+	text-align: center;
+}
+
+.container pre {
+	display: inline-block;
+	text-align: left;
+}
+
+#wordwrap {
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+pre {
+	overflow-x: auto;
+}

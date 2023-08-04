@@ -1,0 +1,95 @@
+<head>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<title>
+	   Zufalige Daten - Index
+	</title>
+</head>
+
+<div class="Top">
+	<head>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<header>
+		<div class="topnav">
+			<a href="index.html">Home</a>
+			<a href="TetheredOS.html">Tethered OS</a>
+			<a href="CBuild.html">CBuild</a>
+			<a class="active" href="x86_64paging.html">X86_64 Paging</a>
+			<a href="About.html">About</a>
+		</div>
+	</header>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/c.min.js"></script>
+
+<body>
+	<center>
+		I do not believe that there is enough easy to digest regularly available information on this topic that an amature os dever can find online (it's all speradic in layout), so I will give information on 64 bit x86 paging in long mode using the information I can gather from multiple resources online.
+		<br>
+		Also, all code on this page is under the public domain, more specifically the CC0 license which literaly has the meaning of no license / no copywright protection here meaning that you can copy and paste as much as you want with no restrictions (from this page).
+		<br>
+		<br>
+		Bellow shows a code snippit for c that shows how a pml4 entry is constructed (each bit explained):
+	</center>
+	<div class="container">
+		<pre id="wordwrap">
+			<code>
+const uint64_t pml_xd = 1 << 63; // execution disable (disables code execution in this page)
+const uint64_t pml_a = 1 << 5; // determins weather the page has been accessed or not since last clear
+const uint64_t pml_pcd = 1 << 4; // disables the chaching of this page
+const uint64_t pml_pwt = 1 << 3; // enables write-through cache
+const uint64_t pml_us = 1 << 2; // enables access by user mode code
+const uint64_t pml_rw = 1 << 1; // enables write privaleges (else if not set the page is read only)
+const uint64_t pml_p = 1 << 0; // enable this flag to set a page as present
+// in order to allocate a pml4 page entry (note that phys is the physical address of A PML3 PAGE TABLE and must be a multiple of 4096 and must be canonical ie it must be of an address size within 52 bits for pml4 paging and that virt is the virtual address and must be within 48 bits of address space)
+uint64_t pml4_index = virt >> 39;
+pml4[pml4_index] = phys | pml_rw | pml_p;
+			</code>
+		</pre>
+	</div>
+	<center>
+		Quite simple when you boil it down, as long as the physical address is a multiple of 4096 and is also canonical and same thing with the virtual address it should work. 
+		<br>
+		<br>
+		Similarly, in a pml3 entry, a basicly the same / similar format is used with some minor differences, for example, the size bit now exists so that entire 1GiB blocks of memory can be allocated without the need for extra and unnecessary sub page allocation tables, otherwise, it points to a pml2 page table, and as before, below shows the method for a pml3 entry:
+	</center>
+	<div class="container">
+		<pre id="wordwrap">
+			<code>
+// all other consts above are used (i recomending putting them all in a single header file)
+const uint64_t pml_ps = 1 << 7; // note: this is the page size. if 1: this entire entry maps a 1 GiB page, if 0: this entry points to another pml2 page table
+uint64_t pml3_index = (virt >> 30) & 0b111111111;
+pml3[pml3_index] = phys | ATTRIBUTES | pml_p; // ATTRIBUTES = ... attributes ... i don't have to write it out again because from the last one you get the idea.
+			</code>
+		</pre>
+	</div>
+	<center>
+		It's getting quite repetitive now, because guess what? It's the exact same structure all over again! except this time instead of pml3 it is a pml2 entry and instead of pointing to a physical address if ps = 1 or a pml2 page table if ps = 0, it is a physical address for allocation of a 2 MiB page under the same conditions, or a pml1 page table under the same conditions, i know, exhilerating, isn't it.
+	</center>
+	<div class="container">
+		<pre id="wordwrap">
+			<code>
+uint64_t pml2_index = (virt >> 21) & 0b111111111;
+pml2[pml2_index] = phys | ATTRIBUTES | pml_p;
+			</code>
+		</pre>
+	</div>
+	<center>
+		The final level, pml1, has the exact same structure exept you do not set the ps bit because it is unused in pml1 (note: this is because it addresses a physical address for a 4 KiB page).
+	</center>
+	<div class="container">
+		<pre id="wordwrap">
+			<code>
+uint64_t pml1_index = (virt >> 12) & 0b111111111;
+pml1[pml1_index] = phys | ATTRIBUTES | pml_p;
+			</code>
+		</pre>
+	</div>
+	<center>
+		Note that each entry in the pml4 maps 512 GiB, each entry in pml3 maps 1 GiB, each pml2 table entry maps 2 MiB, and finaly each pml1 table entry maps 4 KiB. And that each page table (pml4, 3, 2, 1) has to be 512 entries in size, each entry is 8 bytes in size (so 4096 bytes per table) and in order to reload the pml4 pointer you mov it to the cr3 register (assembly or in this case inline assembly).
+	</center>
+</body>
+
+<script>hljs.highlightAll();</script>
